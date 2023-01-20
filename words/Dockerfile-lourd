@@ -1,0 +1,14 @@
+FROM ubuntu:22.04
+
+RUN apt update
+RUN apt install maven openjdk-8-jdk -y
+
+WORKDIR words
+
+COPY . .
+
+RUN mvn verify
+EXPOSE 8080
+
+# -> exec pour bien avoir le pid 1
+CMD exec java -Xmx8m -Xms8m -jar target/words.jar

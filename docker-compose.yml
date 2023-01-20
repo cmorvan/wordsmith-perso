@@ -1,0 +1,16 @@
+version: "3"
+services:
+  db:
+    build: db
+  words:
+    build: words
+    depends_on:
+      - db
+  web:
+    build: web
+    ports:
+      - ${PORT-3000}:80
+    volumes:
+      - ./web/static:/webserver/static
+    depends_on:
+      - words
